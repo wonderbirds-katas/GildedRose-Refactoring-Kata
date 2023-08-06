@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using System.Collections.Generic;
+using FluentAssertions;
 using GildedRose;
 
 namespace GildedRoseTests;
@@ -7,11 +8,14 @@ namespace GildedRoseTests;
 public class GildedRoseTest
 {
     [Fact]
-    public void foo()
+    public void UpdateStandardItem()
     {
-        IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
-        GildedRose.GildedRose app = new GildedRose.GildedRose(Items);
-        app.UpdateQuality();
-        Assert.Equal("fixme", Items[0].Name);
+        var input = new Item {Name = "foo", SellIn = 0, Quality = 0};
+        var items = new List<Item> {input};
+
+        new GildedRose.GildedRose(items).UpdateQuality();
+        
+        var expected = new Item {Name = "foo", SellIn = -1, Quality = 0};
+        items[0].Should().BeEquivalentTo(expected);
     }
 }
