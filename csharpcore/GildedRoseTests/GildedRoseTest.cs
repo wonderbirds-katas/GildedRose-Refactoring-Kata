@@ -7,32 +7,40 @@ namespace GildedRoseTests;
 
 public class GildedRoseTest
 {
-    public class TestItem {
-        public Item Item { get; set; }
-        public string Description { get; set; }
-        public override string ToString() => Description;
-    }
-    
-    public static TheoryData<TestItem> ItemsForWhichSellInShallDecreaseByOne()
-    {
-        var data = new TheoryData<TestItem>();
-        data.Add(new TestItem
-        {
-            Item = new Item{Name = "foo", SellIn = -5, Quality = 0},
-            Description = "negative sellin"
-        });
-        return data;
-    }
-    
-    [Theory(DisplayName = "For standard item, reduce sellin by 1")]
+    [Theory(DisplayName = "For standard item, reduce sellIn by 1 ")]
     [MemberData(nameof(ItemsForWhichSellInShallDecreaseByOne))]
     public void GivenStandardItem_WhenUpdateQuality_ThenSellInDecreasesByOne(TestItem item)
     {
         var expectedSellIn = item.Item.SellIn - 1;
-        
+
         var items = new List<Item> {item.Item};
         new GildedRose.GildedRose(items).UpdateQuality();
-        
+
         items[0].SellIn.Should().Be(expectedSellIn);
+    }
+
+    public static TheoryData<TestItem> ItemsForWhichSellInShallDecreaseByOne() =>
+        new()
+        {
+            new TestItem("foo", -5, 0, "sellIn = -5"),
+            new TestItem("foo", -1, 0, "sellIn = -1"),
+            new TestItem("foo", 0, 0, "sellIn = 0"),
+            new TestItem("foo", 1, 0, "sellIn = 1"),
+            new TestItem("foo", 5, 0, "sellIn = 5"),
+        };
+
+    public class TestItem
+    {
+        private readonly string _description;
+
+        public Item Item { get; }
+
+        public TestItem(string name, int sellIn, int quality, string description)
+        {
+            Item = new Item { Name = name, SellIn = sellIn, Quality = quality };
+            _description = description;
+        }
+
+        public override string ToString() => _description;
     }
 }
