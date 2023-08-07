@@ -5,7 +5,7 @@ using GildedRose;
 
 namespace GildedRoseTests;
 
-public class GildedRoseUpdateQualityQualityTests
+public partial class GildedRoseUpdateQualityQualityTests
 {
     [Theory(DisplayName = "For standard items, reduce quality by 1 ")]
     [MemberData(nameof(ItemsForWhichQualityShallDecreaseByOne))]
@@ -28,16 +28,4 @@ public class GildedRoseUpdateQualityQualityTests
             new TestItem("foo", 1, 1),
             new TestItem("foo", 5, 1),
         };
-
-    public class TestItem
-    {
-        public Item Item { get; }
-
-        public TestItem(string name, int sellIn, int quality)
-        {
-            Item = new Item { Name = name, SellIn = sellIn, Quality = quality };
-        }
-
-        public override string ToString() => $"quality: {Item.Quality}, sellIn: {Item.SellIn}";
-    }
 }
