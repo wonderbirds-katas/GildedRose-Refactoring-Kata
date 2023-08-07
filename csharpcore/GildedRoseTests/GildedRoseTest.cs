@@ -19,6 +19,18 @@ public class GildedRoseTest
         items[0].SellIn.Should().Be(expectedSellIn);
     }
 
+    [Fact(DisplayName = "For Sulfuras, sellIn does not change")]
+    public void GivenSulfuras_WhenUpdateQuality_ThenSellInDoesNotDecrease()
+    {
+        var item = new TestItem("Sulfuras, Hand of Ragnaros", 0, 80, "Sulfuras, Hand of Ragnaros");
+        var expectedSellIn = item.Item.SellIn;
+
+        var items = new List<Item> {item.Item};
+        new GildedRose.GildedRose(items).UpdateQuality();
+
+        items[0].SellIn.Should().Be(expectedSellIn);
+    }
+
     public static TheoryData<TestItem> ItemsForWhichSellInShallDecreaseByOne() =>
         new()
         {
