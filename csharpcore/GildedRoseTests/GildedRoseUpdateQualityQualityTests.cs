@@ -5,8 +5,11 @@ using GildedRose;
 
 namespace GildedRoseTests;
 
-public partial class GildedRoseUpdateQualityQualityTests
+public class GildedRoseUpdateQualityQualityTests
 {
+    private const string AgedBrie = "Aged Brie";
+    private const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
+
     [Theory(DisplayName = "For standard items, reduce quality by 1 ")]
     [MemberData(nameof(ItemsWithDecayingQuality))]
     public void GivenStandardItem_WhenUpdateQuality_ThenQualityDecreasesByOne(TestItem item)
@@ -22,7 +25,7 @@ public partial class GildedRoseUpdateQualityQualityTests
     [Fact(DisplayName = "For Aged Brie, increase quality by 1")]
     public void GivenAgedBrie_WhenUpdateQuality_ThenQualityIncreasesByOne()
     {
-        var item = new TestItem("Aged Brie", 1, 10);
+        var item = new TestItem(AgedBrie, 1, 10);
         var expectedQuality = item.Item.Quality + 1;
 
         var items = new List<Item> {item.Item};
@@ -30,7 +33,67 @@ public partial class GildedRoseUpdateQualityQualityTests
 
         items[0].Quality.Should().Be(expectedQuality);
     }
-
+    
+    [Fact(DisplayName = "For Aged Brie with sellIn 0, increase quality by 2")]
+    public void GivenAgedBrieWithSellInZero_WhenUpdateQuality_ThenQualityIncreasesByTwo()
+    {
+        var item = new TestItem(AgedBrie, 0, 10);
+        var expectedQuality = item.Item.Quality + 2;
+        
+        var items = new List<Item> {item.Item};
+        new GildedRose.GildedRose(items).UpdateQuality();
+        
+        items[0].Quality.Should().Be(expectedQuality);
+    }
+    
+    [Fact(DisplayName = "For Backstage Passes with sellIn greater 10, increase quality by 1")]
+    public void GivenBackstagePassesWithSellInGreaterThan10_WhenUpdateQuality_ThenQualityIncreasesByOne()
+    {
+        var item = new TestItem(BackstagePasses, 11, 10);
+        var expectedQuality = item.Item.Quality + 1;
+        
+        var items = new List<Item> {item.Item};
+        new GildedRose.GildedRose(items).UpdateQuality();
+        
+        items[0].Quality.Should().Be(expectedQuality);
+    }
+    
+    [Fact(DisplayName = "For Backstage Passes with sellIn between 10 and 6, increase quality by 2")]
+    public void GivenBackstagePassesWithSellInBetween10And6_WhenUpdateQuality_ThenQualityIncreasesByTwo()
+    {
+        var item = new TestItem(BackstagePasses, 9, 10);
+        var expectedQuality = item.Item.Quality + 2;
+        
+        var items = new List<Item> {item.Item};
+        new GildedRose.GildedRose(items).UpdateQuality();
+        
+        items[0].Quality.Should().Be(expectedQuality);
+    }
+    
+    [Fact(DisplayName = "For Backstage Passes with sellIn between 5 and 0, increase quality by 3")]
+    public void GivenBackstagePassesWithSellInBetween5And0_WhenUpdateQuality_ThenQualityIncreasesByThree()
+    {
+        var item = new TestItem(BackstagePasses, 4, 10);
+        var expectedQuality = item.Item.Quality + 3;
+        
+        var items = new List<Item> {item.Item};
+        new GildedRose.GildedRose(items).UpdateQuality();
+        
+        items[0].Quality.Should().Be(expectedQuality);
+    }
+    
+    [Fact(DisplayName = "For Backstage Passes with sellIn less than 0, set quality to 0")]
+    public void GivenBackstagePassesWithSellInLessThan0_WhenUpdateQuality_ThenQualityIsZero()
+    {
+        var item = new TestItem(BackstagePasses, -1, 10);
+        var expectedQuality = 0;
+        
+        var items = new List<Item> {item.Item};
+        new GildedRose.GildedRose(items).UpdateQuality();
+        
+        items[0].Quality.Should().Be(expectedQuality);
+    }
+    
     [Theory(DisplayName = "Items with increasing quality never exceed quality of 50")]
     [MemberData(nameof(ItemsWithIncreasingQualityAtMaximum))]
     public void GivenItemIncreasingInQuality_WhenUpdateQuality_ThenQualityDoesNotExceed50(TestItem item)
@@ -56,7 +119,7 @@ public partial class GildedRoseUpdateQualityQualityTests
     public static TheoryData<TestItem> ItemsWithIncreasingQualityAtMaximum() =>
         new()
         {
-            new TestItem("Aged Brie", 10, 50),
-            new TestItem("Backstage passes to a TAFKAL80ETC concert", 5, 50),
+            new TestItem(AgedBrie, 10, 50),
+            new TestItem(BackstagePasses, 5, 50),
         };
 }
