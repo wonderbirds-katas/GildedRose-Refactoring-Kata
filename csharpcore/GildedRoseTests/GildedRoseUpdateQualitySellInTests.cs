@@ -8,7 +8,7 @@ namespace GildedRoseTests;
 public class GildedRoseUpdateQualitySellInTests
 {
     [Theory(DisplayName = "For standard items, reduce sellIn by 1 ")]
-    [MemberData(nameof(ItemsForWhichSellInShallDecreaseByOne))]
+    [MemberData(nameof(ItemsWithDecreasingSellIn))]
     public void GivenStandardItem_WhenUpdateQuality_ThenSellInDecreasesByOne(TestItem item)
     {
         var expectedSellIn = item.Item.SellIn - 1;
@@ -31,13 +31,13 @@ public class GildedRoseUpdateQualitySellInTests
         items[0].SellIn.Should().Be(expectedSellIn);
     }
 
-    public static TheoryData<TestItem> ItemsForWhichSellInShallDecreaseByOne() =>
+    public static TheoryData<TestItem> ItemsWithDecreasingSellIn() =>
         new()
         {
-            new TestItem("foo", -5, 0),
-            new TestItem("foo", -1, 0),
-            new TestItem("foo", 0, 0),
-            new TestItem("foo", 1, 0),
-            new TestItem("foo", 5, 0),
+            new TestItem("Milk", -5, 0),
+            new TestItem("Milk", -1, 0),
+            new TestItem("Milk", 0, 0),
+            new TestItem("Milk", 1, 0),
+            new TestItem("Milk", 5, 0),
         };
 }

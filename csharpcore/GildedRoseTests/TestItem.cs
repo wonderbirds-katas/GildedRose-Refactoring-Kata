@@ -11,5 +11,5 @@ public class TestItem
         Item = new Item {Name = name, SellIn = sellIn, Quality = quality};
     }
 
-    public override string ToString() => $"quality: {Item.Quality}, sellIn: {Item.SellIn}";
+    public override string ToString() => $"'{Item.Name}' with quality {Item.Quality} and sellIn {Item.SellIn}";
 }
