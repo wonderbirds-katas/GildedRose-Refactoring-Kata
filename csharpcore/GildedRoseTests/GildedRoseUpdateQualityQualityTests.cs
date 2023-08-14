@@ -11,10 +11,22 @@ public class GildedRoseUpdateQualityQualityTests
     private const string BackstagePasses = "Backstage passes to a TAFKAL80ETC concert";
 
     [Theory(DisplayName = "For standard items, reduce quality by 1 ")]
-    [MemberData(nameof(ItemsWithDecayingQuality))]
+    [MemberData(nameof(ItemsWithQualityReducedByOne))]
     public void GivenStandardItem_WhenUpdateQuality_ThenQualityDecreasesByOne(TestItem item)
     {
         var expectedQuality = item.Item.Quality - 1;
+
+        var items = new List<Item> {item.Item};
+        new GildedRose.GildedRose(items).UpdateQuality();
+
+        items[0].Quality.Should().Be(expectedQuality);
+    }
+    
+    [Theory(DisplayName = "For standard items with sellIn 0, reduce quality by 2")]
+    [MemberData(nameof(ItemsWithQualityReducedByTwo))]
+    public void GivenStandardItemWithSellInZero_WhenUpdateQuality_ThenQualityDecreasesByTwo(TestItem item)
+    {
+        var expectedQuality = item.Item.Quality - 2;
 
         var items = new List<Item> {item.Item};
         new GildedRose.GildedRose(items).UpdateQuality();
@@ -106,7 +118,7 @@ public class GildedRoseUpdateQualityQualityTests
         items[0].Quality.Should().Be(expectedQuality);
     }
 
-    public static TheoryData<TestItem> ItemsWithDecayingQuality() =>
+    public static TheoryData<TestItem> ItemsWithQualityReducedByOne() =>
         new()
         {
             new TestItem("Pizza", -5, 1),
@@ -116,6 +128,13 @@ public class GildedRoseUpdateQualityQualityTests
             new TestItem("Pizza", 5, 1),
         };
 
+    public static TheoryData<TestItem> ItemsWithQualityReducedByTwo() =>
+        new()
+        {
+            new TestItem("Pizza", 0, 5),
+            new TestItem("Pizza", -1, 5),
+        };
+    
     public static TheoryData<TestItem> ItemsWithIncreasingQualityAtMaximum() =>
         new()
         {

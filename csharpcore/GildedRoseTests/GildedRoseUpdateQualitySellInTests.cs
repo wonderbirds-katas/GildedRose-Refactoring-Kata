@@ -18,7 +18,7 @@ public class GildedRoseUpdateQualitySellInTests
 
         items[0].SellIn.Should().Be(expectedSellIn);
     }
-
+    
     [Fact(DisplayName = "For legendary items, sellIn does not change")]
     public void GivenLegendaryItem_WhenUpdateQuality_ThenSellInDoesNotDecrease()
     {
