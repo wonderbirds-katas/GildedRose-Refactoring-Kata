@@ -117,6 +117,18 @@ public class GildedRoseUpdateQualityQualityTests
 
         items[0].Quality.Should().Be(expectedQuality);
     }
+    
+    [Theory(DisplayName = "Items with decreasing quality never go below 0")]
+    [MemberData(nameof(ItemsWithDecreasingQualityAtMinimum))]
+    public void GivenItemDecreasingInQuality_WhenUpdateQuality_ThenQualityDoesNotGoBelow0(TestItem item)
+    {
+        const int expectedQuality = 0;
+
+        var items = new List<Item> {item.Item};
+        new GildedRose.GildedRose(items).UpdateQuality();
+
+        items[0].Quality.Should().Be(expectedQuality);
+    }
 
     public static TheoryData<TestItem> ItemsWithQualityReducedByOne() =>
         new()
@@ -140,5 +152,13 @@ public class GildedRoseUpdateQualityQualityTests
         {
             new TestItem(AgedBrie, 10, 50),
             new TestItem(BackstagePasses, 5, 50),
+        };
+
+    public static TheoryData<TestItem> ItemsWithDecreasingQualityAtMinimum() =>
+        new()
+        {
+            new TestItem("Pizza", 1, 1),
+            new TestItem("Pizza", 0, 0),
+            new TestItem("Pizza", -1, 0),
         };
 }
