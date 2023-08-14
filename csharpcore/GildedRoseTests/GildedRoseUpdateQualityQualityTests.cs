@@ -70,8 +70,8 @@ public class GildedRoseUpdateQualityQualityTests
         items[0].Quality.Should().Be(expectedQuality);
     }
     
-    [Fact(DisplayName = "For Backstage Passes with sellIn between 10 and 6, increase quality by 2")]
-    public void GivenBackstagePassesWithSellInBetween10And6_WhenUpdateQuality_ThenQualityIncreasesByTwo()
+    [Fact(DisplayName = "For Backstage Passes with sellIn less than 10, increase quality by 2")]
+    public void GivenBackstagePassesWithSellInLessThan10_WhenUpdateQuality_ThenQualityIncreasesByTwo()
     {
         var item = new TestItem(BackstagePasses, 9, 10);
         var expectedQuality = item.Item.Quality + 2;
@@ -82,8 +82,8 @@ public class GildedRoseUpdateQualityQualityTests
         items[0].Quality.Should().Be(expectedQuality);
     }
     
-    [Fact(DisplayName = "For Backstage Passes with sellIn between 5 and 0, increase quality by 3")]
-    public void GivenBackstagePassesWithSellInBetween5And0_WhenUpdateQuality_ThenQualityIncreasesByThree()
+    [Fact(DisplayName = "For Backstage Passes with sellIn less than 5, increase quality by 3")]
+    public void GivenBackstagePassesWithSellInLessThan5_WhenUpdateQuality_ThenQualityIncreasesByThree()
     {
         var item = new TestItem(BackstagePasses, 4, 10);
         var expectedQuality = item.Item.Quality + 3;
