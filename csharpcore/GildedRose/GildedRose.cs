@@ -15,6 +15,11 @@ public class GildedRose
     {
         for (var i = 0; i < _items.Count; i++)
         {
+            if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
+            {
+                _items[i].SellIn -= 1;
+            }
+
             if (
                 _items[i].Name != "Aged Brie"
                 && _items[i].Name != "Backstage passes to a TAFKAL80ETC concert"
@@ -36,7 +41,7 @@ public class GildedRose
 
                     if (_items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
                     {
-                        if (_items[i].SellIn < 11)
+                        if (_items[i].SellIn < 10)
                         {
                             if (_items[i].Quality < 50)
                             {
@@ -44,7 +49,7 @@ public class GildedRose
                             }
                         }
 
-                        if (_items[i].SellIn < 6)
+                        if (_items[i].SellIn < 5)
                         {
                             if (_items[i].Quality < 50)
                             {
@@ -53,11 +58,6 @@ public class GildedRose
                         }
                     }
                 }
-            }
-
-            if (_items[i].Name != "Sulfuras, Hand of Ragnaros")
-            {
-                _items[i].SellIn -= 1;
             }
 
             if (_items[i].SellIn < 0)
