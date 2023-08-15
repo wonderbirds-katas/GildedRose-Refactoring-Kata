@@ -49,19 +49,20 @@ public class GildedRose
         {
             return;
         }
+        
         if (item.Quality < 50)
         {
             item.Quality += 1;
+        }
 
-            if (item.SellIn < 10 && item.Quality < 50)
-            {
-                item.Quality += 1;
-            }
+        if (item.SellIn < 10 && item.Quality < 50)
+        {
+            item.Quality += 1;
+        }
 
-            if (item.SellIn < 5 && item.Quality < 50)
-            {
-                item.Quality += 1;
-            }
+        if (item.SellIn < 5 && item.Quality < 50)
+        {
+            item.Quality += 1;
         }
 
         if (item.SellIn < 0)
