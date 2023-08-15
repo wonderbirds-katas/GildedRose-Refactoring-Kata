@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace GildedRose;
 
@@ -23,23 +24,36 @@ public class GildedRose
     {
         UpdateSellInForItem(item);
 
+        var qualityIncrease = 0;
+        
         UpdateQualityForStandardItem(item);
 
         UpdateQualityForBackstagePasses(item);
 
-        UpdateQualityForAgedBrie(item);
+        qualityIncrease = UpdateQualityForAgedBrie(item);
+
+        IncreaseQualityForItem(item, qualityIncrease);
     }
 
-    private static void UpdateQualityForAgedBrie(Item item)
+    private static void IncreaseQualityForItem(Item item, int qualityIncrease)
     {
-        if (item.Name == "Aged Brie" && item.Quality < 50)
+        item.Quality = Math.Min(50, item.Quality + qualityIncrease);
+    }
+
+    private static int UpdateQualityForAgedBrie(Item item)
+    {
+        if (item.Name != "Aged Brie")
         {
-            item.Quality += 1;
+            return 0;
         }
 
-        if (item.Name == "Aged Brie" && item.SellIn < 0 && item.Quality < 50)
+        if (item.SellIn >= 0)
         {
-            item.Quality += 1;
+            return 1;
+        }
+        else
+        {
+            return 2;
         }
     }
 
