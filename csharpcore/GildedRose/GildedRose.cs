@@ -5,7 +5,7 @@ namespace GildedRose;
 public class GildedRose
 {
     readonly IList<Item> _items;
-    
+
     public GildedRose(IList<Item> items)
     {
         _items = items;
@@ -15,7 +15,10 @@ public class GildedRose
     {
         for (var i = 0; i < _items.Count; i++)
         {
-            if (_items[i].Name != "Aged Brie" && _items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+            if (
+                _items[i].Name != "Aged Brie"
+                && _items[i].Name != "Backstage passes to a TAFKAL80ETC concert"
+            )
             {
                 if (_items[i].Quality > 0)
                 {
