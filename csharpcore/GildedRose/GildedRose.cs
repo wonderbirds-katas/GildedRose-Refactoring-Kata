@@ -21,10 +21,7 @@ public class GildedRose
 
     private void UpdateQualityForItem(Item item)
     {
-        if (item.Name != "Sulfuras, Hand of Ragnaros")
-        {
-            item.SellIn -= 1;
-        }
+        UpdateSellInForItem(item);
 
         if (
             item.Name != "Aged Brie"
@@ -92,6 +89,14 @@ public class GildedRose
                     item.Quality += 1;
                 }
             }
+        }
+    }
+
+    private static void UpdateSellInForItem(Item item)
+    {
+        if (item.Name != "Sulfuras, Hand of Ragnaros")
+        {
+            item.SellIn -= 1;
         }
     }
 }
