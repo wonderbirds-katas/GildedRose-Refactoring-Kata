@@ -45,7 +45,11 @@ public class GildedRose
 
     private static void UpdateQualityForBackstagePasses(Item item)
     {
-        if (item.Name == "Backstage passes to a TAFKAL80ETC concert" && item.Quality < 50)
+        if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+        {
+            return;
+        }
+        if (item.Quality < 50)
         {
             item.Quality += 1;
 
@@ -60,9 +64,9 @@ public class GildedRose
             }
         }
 
-        if (item.Name == "Backstage passes to a TAFKAL80ETC concert" && item.SellIn < 0)
+        if (item.SellIn < 0)
         {
-            item.Quality -= item.Quality;
+            item.Quality = 0;
         }
     }
 
