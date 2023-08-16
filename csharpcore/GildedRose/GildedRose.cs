@@ -26,7 +26,7 @@ public class GildedRose
 
         var qualityIncrease = 0;
         
-        UpdateQualityForStandardItem(item);
+        qualityIncrease += UpdateQualityForStandardItem(item);
 
         qualityIncrease += UpdateQualityForBackstagePasses(item);
 
@@ -37,7 +37,7 @@ public class GildedRose
 
     private static void IncreaseQualityForItem(Item item, int qualityIncrease)
     {
-        item.Quality = Math.Min(50, item.Quality + qualityIncrease);
+        item.Quality = Math.Clamp(item.Quality + qualityIncrease, 0, 50);
     }
 
     private static int UpdateQualityForAgedBrie(Item item)
@@ -84,21 +84,25 @@ public class GildedRose
         return result;
     }
 
-    private static void UpdateQualityForStandardItem(Item item)
+    private static int UpdateQualityForStandardItem(Item item)
     {
-        if (
-            item.Name != "Aged Brie"
-            && item.Name != "Backstage passes to a TAFKAL80ETC concert"
-            && item.Quality > 0 && item.Name != "Sulfuras, Hand of Ragnaros"
-        )
+        int result = 0;
+
+        if (item.Name == "Aged Brie"
+            || item.Name == "Backstage passes to a TAFKAL80ETC concert"
+            || item.Quality <= 0 || item.Name == "Sulfuras, Hand of Ragnaros")
         {
-            item.Quality -= 1;
+            return result;
         }
 
-        if (item.Name != "Aged Brie" && item.SellIn < 0 && item.Quality > 0 && item.Name != "Sulfuras, Hand of Ragnaros")
+        result -= 1;
+
+        if (item.SellIn < 0)
         {
-            item.Quality -= 1;
+            result -= 1;
         }
+
+        return result;
     }
 
     private static void UpdateSellInForItem(Item item)
