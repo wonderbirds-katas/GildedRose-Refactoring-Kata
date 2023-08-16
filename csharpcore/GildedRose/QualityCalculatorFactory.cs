@@ -2,21 +2,12 @@ namespace GildedRose;
 
 internal static class QualityCalculatorFactory
 {
-    public static IQualityCalculator Create(Item item)
-    {
-        if (item.Name == "Aged Brie")
+    public static IQualityCalculator Create(Item item) =>
+        item.Name switch
         {
-            return new AgedBrieQualityCalculator();
-        }
-        if (item.Name != "Aged Brie"
-            && item.Name != "Backstage passes to a TAFKAL80ETC concert"
-            && item.Name != "Sulfuras, Hand of Ragnaros")
-        {
-            return new StandardItemQualityCalculator();
-        }
-        else
-        {
-            return new ZeroQualityIncreaseCalculator();
-        }
-    }
+            "Aged Brie" => new AgedBrieQualityCalculator(),
+            "Backstage passes to a TAFKAL80ETC concert" => new ZeroQualityIncreaseCalculator(),
+            "Sulfuras, Hand of Ragnaros" => new ZeroQualityIncreaseCalculator(),
+            _ => new StandardItemQualityCalculator()
+        };
 }
