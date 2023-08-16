@@ -2,7 +2,7 @@ namespace GildedRose;
 
 internal class StandardItemQualityCalculator : IQualityCalculator
 {
-    public int CalculateQualityIncrease(int sellIn)
+    public int CalculateQualityIncrease(int sellIn, int quality)
     {
         var result = -1;
 

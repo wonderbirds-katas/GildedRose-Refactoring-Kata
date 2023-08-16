@@ -28,55 +28,9 @@ public class GildedRose
         
         var calculator = QualityCalculatorFactory.Create(item);
 
-        qualityIncrease += calculator.CalculateQualityIncrease(item.SellIn);
-        
-        qualityIncrease += CalculateQualityIncreaseForBackstagePasses(item);
+        qualityIncrease += calculator.CalculateQualityIncrease(item.SellIn, item.Quality);
         
         IncreaseQualityForItem(item, qualityIncrease);
-    }
-
-    private static int CalculateQualityIncreaseForBackstagePasses(Item item)
-    {
-        if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
-        {
-            return 0;
-        }
-
-        var result = 1;
-
-        if (item.SellIn < 10)
-        {
-            result++;
-        }
-
-        if (item.SellIn < 5)
-        {
-            result++;
-        }
-
-        if (item.SellIn < 0)
-        {
-            result = -item.Quality;
-        }
-
-        return result;
-    }
-
-    private static int CalculateQualityIncreaseForAgedBrie(Item item)
-    {
-        if (item.Name != "Aged Brie")
-        {
-            return 0;
-        }
-
-        if (item.SellIn >= 0)
-        {
-            return 1;
-        }
-        else
-        {
-            return 2;
-        }
     }
 
     private static void IncreaseQualityForItem(Item item, int qualityIncrease)

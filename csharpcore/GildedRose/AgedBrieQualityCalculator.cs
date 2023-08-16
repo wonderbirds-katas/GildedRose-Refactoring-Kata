@@ -2,7 +2,7 @@ namespace GildedRose;
 
 internal class AgedBrieQualityCalculator : IQualityCalculator
 {
-    public int CalculateQualityIncrease(int sellIn)
+    public int CalculateQualityIncrease(int sellIn, int quality)
     {
         if (sellIn >= 0)
         {
