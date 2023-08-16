@@ -28,7 +28,7 @@ public class GildedRose
         
         var calculator = QualityCalculatorFactory.Create(item);
 
-        qualityIncrease += calculator.CalculateQualityIncrease();
+        qualityIncrease += calculator.CalculateQualityIncrease(item.SellIn);
         
         qualityIncrease += CalculateQualityIncreaseForBackstagePasses(item);
 

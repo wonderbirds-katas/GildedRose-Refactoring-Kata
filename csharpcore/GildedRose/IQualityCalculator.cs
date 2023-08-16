@@ -2,5 +2,5 @@ namespace GildedRose;
 
 internal interface IQualityCalculator
 {
-    int CalculateQualityIncrease();
+    int CalculateQualityIncrease(int sellIn);
 }
