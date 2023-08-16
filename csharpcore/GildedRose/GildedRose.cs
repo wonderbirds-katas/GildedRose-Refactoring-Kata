@@ -26,34 +26,15 @@ public class GildedRose
 
         var qualityIncrease = 0;
         
-        qualityIncrease += CalculateQualityIncreaseForStandardItem(item);
+        var calculator = new StandardItemQualityCalculator(item);
 
+        qualityIncrease += calculator.CalculateQualityIncrease();
+        
         qualityIncrease += CalculateQualityIncreaseForBackstagePasses(item);
 
         qualityIncrease += CalculateQualityIncreaseForAgedBrie(item);
 
         IncreaseQualityForItem(item, qualityIncrease);
-    }
-
-    private static int CalculateQualityIncreaseForStandardItem(Item item)
-    {
-        int result = 0;
-
-        if (item.Name == "Aged Brie"
-            || item.Name == "Backstage passes to a TAFKAL80ETC concert"
-            || item.Quality <= 0 || item.Name == "Sulfuras, Hand of Ragnaros")
-        {
-            return result;
-        }
-
-        result -= 1;
-
-        if (item.SellIn < 0)
-        {
-            result -= 1;
-        }
-
-        return result;
     }
 
     private static int CalculateQualityIncreaseForBackstagePasses(Item item)
