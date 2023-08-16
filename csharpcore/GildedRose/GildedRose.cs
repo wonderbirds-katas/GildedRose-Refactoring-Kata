@@ -31,9 +31,7 @@ public class GildedRose
         qualityIncrease += calculator.CalculateQualityIncrease(item.SellIn);
         
         qualityIncrease += CalculateQualityIncreaseForBackstagePasses(item);
-
-        qualityIncrease += CalculateQualityIncreaseForAgedBrie(item);
-
+        
         IncreaseQualityForItem(item, qualityIncrease);
     }
 
