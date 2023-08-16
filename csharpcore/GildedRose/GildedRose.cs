@@ -35,26 +35,25 @@ public class GildedRose
         IncreaseQualityForItem(item, qualityIncrease);
     }
 
-    private static void IncreaseQualityForItem(Item item, int qualityIncrease)
+    private static int UpdateQualityForStandardItem(Item item)
     {
-        item.Quality = Math.Clamp(item.Quality + qualityIncrease, 0, 50);
-    }
+        int result = 0;
 
-    private static int UpdateQualityForAgedBrie(Item item)
-    {
-        if (item.Name != "Aged Brie")
+        if (item.Name == "Aged Brie"
+            || item.Name == "Backstage passes to a TAFKAL80ETC concert"
+            || item.Quality <= 0 || item.Name == "Sulfuras, Hand of Ragnaros")
         {
-            return 0;
+            return result;
         }
 
-        if (item.SellIn >= 0)
+        result -= 1;
+
+        if (item.SellIn < 0)
         {
-            return 1;
+            result -= 1;
         }
-        else
-        {
-            return 2;
-        }
+
+        return result;
     }
 
     private static int UpdateQualityForBackstagePasses(Item item)
@@ -84,25 +83,26 @@ public class GildedRose
         return result;
     }
 
-    private static int UpdateQualityForStandardItem(Item item)
+    private static int UpdateQualityForAgedBrie(Item item)
     {
-        int result = 0;
-
-        if (item.Name == "Aged Brie"
-            || item.Name == "Backstage passes to a TAFKAL80ETC concert"
-            || item.Quality <= 0 || item.Name == "Sulfuras, Hand of Ragnaros")
+        if (item.Name != "Aged Brie")
         {
-            return result;
+            return 0;
         }
 
-        result -= 1;
-
-        if (item.SellIn < 0)
+        if (item.SellIn >= 0)
         {
-            result -= 1;
+            return 1;
         }
+        else
+        {
+            return 2;
+        }
+    }
 
-        return result;
+    private static void IncreaseQualityForItem(Item item, int qualityIncrease)
+    {
+        item.Quality = Math.Clamp(item.Quality + qualityIncrease, 0, 50);
     }
 
     private static void UpdateSellInForItem(Item item)
