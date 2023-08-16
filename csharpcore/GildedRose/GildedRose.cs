@@ -26,16 +26,16 @@ public class GildedRose
 
         var qualityIncrease = 0;
         
-        qualityIncrease += UpdateQualityForStandardItem(item);
+        qualityIncrease += CalculateQualityIncreaseForStandardItem(item);
 
-        qualityIncrease += UpdateQualityForBackstagePasses(item);
+        qualityIncrease += CalculateQualityIncreaseForBackstagePasses(item);
 
-        qualityIncrease += UpdateQualityForAgedBrie(item);
+        qualityIncrease += CalculateQualityIncreaseForAgedBrie(item);
 
         IncreaseQualityForItem(item, qualityIncrease);
     }
 
-    private static int UpdateQualityForStandardItem(Item item)
+    private static int CalculateQualityIncreaseForStandardItem(Item item)
     {
         int result = 0;
 
@@ -56,7 +56,7 @@ public class GildedRose
         return result;
     }
 
-    private static int UpdateQualityForBackstagePasses(Item item)
+    private static int CalculateQualityIncreaseForBackstagePasses(Item item)
     {
         if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
         {
@@ -83,7 +83,7 @@ public class GildedRose
         return result;
     }
 
-    private static int UpdateQualityForAgedBrie(Item item)
+    private static int CalculateQualityIncreaseForAgedBrie(Item item)
     {
         if (item.Name != "Aged Brie")
         {
