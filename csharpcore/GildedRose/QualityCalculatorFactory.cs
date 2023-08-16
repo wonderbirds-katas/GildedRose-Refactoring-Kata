@@ -7,7 +7,7 @@ internal static class QualityCalculatorFactory
         {
             "Aged Brie" => new AgedBrieQualityCalculator(),
             "Backstage passes to a TAFKAL80ETC concert" => new BackstagePassesQualityCalculator(),
-            "Sulfuras, Hand of Ragnaros" => new ZeroQualityIncreaseCalculator(),
+            "Sulfuras, Hand of Ragnaros" => new LegendaryItemQualityCalculator(),
             _ => new StandardItemQualityCalculator()
         };
 }
