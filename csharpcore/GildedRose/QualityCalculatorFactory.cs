@@ -6,7 +6,7 @@ internal static class QualityCalculatorFactory
         item.Name switch
         {
             "Aged Brie" => new AgedBrieQualityCalculator(),
-            "Backstage passes to a TAFKAL80ETC concert" => new ZeroQualityIncreaseCalculator(),
+            "Backstage passes to a TAFKAL80ETC concert" => new BackstagePassesQualityCalculator(),
             "Sulfuras, Hand of Ragnaros" => new ZeroQualityIncreaseCalculator(),
             _ => new StandardItemQualityCalculator()
         };
