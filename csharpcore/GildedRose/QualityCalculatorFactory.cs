@@ -2,12 +2,18 @@ namespace GildedRose;
 
 internal static class QualityCalculatorFactory
 {
-    public static IQualityCalculator Create(Item item) =>
-        item.Name switch
+    public static IQualityCalculator Create(Item item)
+    {
+        switch (item.Name)
         {
-            "Aged Brie" => new AgedBrieQualityCalculator(),
-            "Backstage passes to a TAFKAL80ETC concert" => new BackstagePassesQualityCalculator(),
-            "Sulfuras, Hand of Ragnaros" => new LegendaryItemQualityCalculator(),
-            _ => new StandardItemQualityCalculator()
-        };
+            case ItemNames.AgedBrie: // Update Obsidian note after this change
+                return new AgedBrieQualityCalculator();
+            case "Backstage passes to a TAFKAL80ETC concert":
+                return new BackstagePassesQualityCalculator();
+            case "Sulfuras, Hand of Ragnaros":
+                return new LegendaryItemQualityCalculator();
+            default:
+                return new StandardItemQualityCalculator();
+        }
+    }
 }
